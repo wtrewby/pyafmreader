@@ -6,6 +6,7 @@ import os
 from .constants import *
 from .jpk.loadjpkfile import loadJPKfile
 from .nanosc.loadnanoscfile import loadNANOSCfile
+from .ar.load_ibw_forcecurve import load_ibw_fc
 from .load_uff import loadUFFtxt
 from .uff import UFF
 
@@ -16,6 +17,7 @@ def loadfile(filepath):
     Supported formats:
         - JPK --> .jpk-force, .jpk-force-map, .jpk-qi-data
         - NANOSCOPE --> .spm, .pfc
+        - ASYLUM RESEARCH --> .ibw
         - UFF --> .uff
 
             Parameters:
@@ -36,5 +38,8 @@ def loadfile(filepath):
     
     elif filesuffix in ufffiles:
         uffobj = loadUFFtxt(filepath, uffobj)
+
+    elif filesuffix in ar_exts:
+        uffobj = load_ibw_fc(filepath, uffobj)
     
     return uffobj
